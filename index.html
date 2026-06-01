@@ -862,8 +862,9 @@ async function analyzeGemini(dataUrl){
 }`;
 
   try{
+    const GEMINI_URL = `https://corsproxy.io/?url=${encodeURIComponent('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + GEMINI_KEY)}`;
     const res = await fetch(
-      `/api/gemini`,
+      GEMINI_URL,
       {
         method:'POST',
         headers:{'Content-Type':'application/json'},
