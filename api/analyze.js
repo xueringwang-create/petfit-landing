@@ -1,11 +1,8 @@
 // ══════════════════════════════════════════════════════
 // 宠物照片分析 - 服务器端中转函数
 // ──────────────────────────────────────────────────────
-// 这个文件运行在 Vercel 的服务器上，不是浏览器里
-// 所以不会有"跨域 Failed to fetch"的问题
-//
-// 调用方式：前端 POST 请求到 /api/analyze
-// 这个函数收到请求后，代替浏览器去联系 DeepSeek 官方接口
+// 改用火山引擎 Doubao 视觉模型（DeepSeek官方接口已确认不支持图片）
+// 跟 tryon.js 共用同一个火山引擎 API Key
 // ══════════════════════════════════════════════════════
 
 export default async function handler(req, res) {
@@ -16,13 +13,12 @@ export default async function handler(req, res) {
   const { image, mime, apiKey } = req.body;
 
   if (!apiKey) {
-    return res.status(400).json({ error: '缺少 DeepSeek API Key，请先在网站右上角配置' });
+    return res.status(400).json({ error: '缺少火山引擎 API Key，请先在网站右上角配置' });
   }
   if (!image) {
     return res.status(400).json({ error: '缺少图片数据' });
   }
 
-  // 宠物分析提示词：涵盖品种、体型、毛发、性格等维度
   const PROMPT = `你是专业宠物穿搭顾问。分析图片中的宠物，只返回JSON不要其他内容：
 {
   "emoji":"代表该动物的emoji",
@@ -46,19 +42,17 @@ export default async function handler(req, res) {
 
   try {
     // ────────────────────────────────────────────────
-    // DeepSeek 官方接口地址（不是火山引擎）
-    // 文档：https://platform.deepseek.com/docs
-    // 如果这个模型不支持图片输入，这里会收到明确报错
-    // 届时把 model 改成你账号里实际可用的视觉模型名称
+    // 火山引擎 Doubao 视觉模型接口
+    // 模型ID：doubao-1.5-vision-pro-250328（已在控制台确认开通）
     // ────────────────────────────────────────────────
-    const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
+    const response = await fetch('https://ark.cn-beijing.volces.com/api/v3/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${apiKey}`
       },
       body: JSON.stringify({
-        model: 'deepseek-vl',  // ← 如果报错"模型不存在"，去 platform.deepseek.com 看你账号里实际的视觉模型名称，改这里
+        model: 'doubao-1.5-vision-pro-250328',
         max_tokens: 1000,
         temperature: 0.3,
         messages: [
@@ -75,12 +69,11 @@ export default async function handler(req, res) {
 
     const data = await response.json();
 
-    // 把 DeepSeek 返回的原始错误直接传回前端，方便排查
     if (data.error) {
-      return res.status(400).json({ error: `DeepSeek 接口报错：${data.error.message || JSON.stringify(data.error)}` });
+      return res.status(400).json({ error: `火山引擎接口报错：${data.error.message || JSON.stringify(data.error)}` });
     }
     if (!data.choices || !data.choices[0]) {
-      return res.status(400).json({ error: `DeepSeek 返回格式异常：${JSON.stringify(data)}` });
+      return res.status(400).json({ error: `返回格式异常：${JSON.stringify(data)}` });
     }
 
     const rawText = data.choices[0].message.content.replace(/```json|```/g, '').trim();
