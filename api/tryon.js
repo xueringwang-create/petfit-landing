@@ -40,7 +40,7 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: '缺少服装图片' });
     }
 
-    const prompt = `将图1中宠物的服装换成图2展示的${clothName || '这件服装'}，保持图1中宠物的样貌、毛色、姿态、背景完全不变，只修改它身上穿的衣服，衣服的颜色和图案参考图2。生成照片级真实效果。`;
+    const prompt = `将图1中宠物的服装替换成图2展示的${clothName || '这件服装'}。严格要求：宠物的脸部、眼睛、毛色、毛发纹理、耳朵形态、姿势动作、所在背景环境、光线效果必须与图1完全一致，不允许有任何改变，不要添加任何配饰、项圈、背景物品。唯一允许修改的部分只有躯干上穿着的衣物，衣物的颜色、图案、剪裁参考图2。生成照片级真实效果，避免卡通化、避免肢体变形。`;
 
     const response = await fetch('https://ark.cn-beijing.volces.com/api/v3/images/generations', {
       method: 'POST',
@@ -56,7 +56,11 @@ export default async function handler(req, res) {
         response_format: 'url',
         size: '2K',
         stream: false,
-        watermark: false
+        watermark: false,
+        // 部分火山引擎模型支持以下参数控制图生图的改变幅度
+        // 如果接口报错"unknown field"，说明该模型不支持，删掉这一行即可
+        // guidance_scale 数值越高，越贴近原图（不同模型范围不同，先试 7.5）
+        guidance_scale: 7.5
       })
     });
 
