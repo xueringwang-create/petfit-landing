@@ -16,147 +16,67 @@
 html{scroll-behavior:smooth}
 body{font-family:'Noto Sans SC',sans-serif;background:var(--cream);color:var(--ink);overflow-x:hidden}
 
-/* ── NAV ── */
-nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:center;justify-content:space-between;padding:16px 56px;background:rgba(251,248,243,0.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:center;justify-content:space-between;padding:16px 56px;background:rgba(251,248,243,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
 .logo-mark{width:38px;height:38px;background:var(--warm);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;transform:rotate(-5deg)}
 .logo-name{font-family:'Noto Serif SC',serif;font-size:17px;font-weight:700}
 .logo-name span{color:var(--warm)}
-.nav-r{display:flex;align-items:center;gap:24px}
-.nav-r a{font-size:13px;color:var(--muted);text-decoration:none;transition:color .2s}
-.nav-r a:hover{color:var(--warm)}
-.nav-pill{background:var(--ink);color:#fff!important;padding:9px 22px;border-radius:100px;font-size:13px;font-weight:500}
-.nav-pill:hover{background:var(--warm)!important}
+.nav-r{display:flex;align-items:center;gap:18px}
+.nav-r a{font-size:13px;color:var(--muted);text-decoration:none}
+.nav-key-btn{font-size:12px;padding:7px 16px;border-radius:100px;border:1.5px solid var(--border);background:transparent;cursor:pointer;font-family:inherit;color:var(--muted);transition:all .2s}
+.nav-key-btn:hover{border-color:var(--warm);color:var(--warm)}
 
-/* ── HERO FULL SCREEN ── */
-.hero{
-  min-height:100vh;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  padding:120px 40px 80px;text-align:center;
-  position:relative;overflow:hidden;
-}
-.hero-bg{
-  position:absolute;inset:0;z-index:0;
-  background:
-    radial-gradient(ellipse 80% 60% at 50% 0%,rgba(212,98,42,0.12),transparent 60%),
-    radial-gradient(ellipse 50% 40% at 0% 100%,rgba(74,122,76,0.08),transparent 50%),
-    radial-gradient(ellipse 40% 40% at 100% 80%,rgba(201,148,58,0.08),transparent 50%);
-}
-/* 飘动的爪印 */
-.paw{position:absolute;font-size:var(--s);opacity:var(--o);animation:floatPaw var(--d) ease-in-out infinite var(--delay);pointer-events:none;z-index:0}
-@keyframes floatPaw{0%,100%{transform:translateY(0) rotate(var(--r))}50%{transform:translateY(-20px) rotate(calc(var(--r) + 5deg))}}
+.hero{min-height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:120px 40px 50px;text-align:center;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(212,98,42,0.1),transparent 60%)}
+.hero-eyebrow{position:relative;z-index:1;display:inline-flex;align-items:center;gap:8px;background:white;border:1px solid var(--border);padding:6px 18px;border-radius:100px;font-size:12px;color:var(--muted);margin-bottom:24px;box-shadow:0 4px 16px rgba(18,12,4,.06)}
+.hero h1{position:relative;z-index:1;font-family:'Noto Serif SC',serif;font-size:clamp(38px,6vw,68px);font-weight:900;line-height:1.15;margin-bottom:18px}
+.hero h1 .accent{background:linear-gradient(135deg,var(--warm),var(--warm2),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{position:relative;z-index:1;font-size:15px;line-height:1.8;color:var(--muted);max-width:480px;margin:0 auto}
 
-.hero-eyebrow{
-  position:relative;z-index:1;
-  display:inline-flex;align-items:center;gap:8px;
-  background:white;border:1px solid var(--border);
-  padding:6px 18px;border-radius:100px;
-  font-size:12px;color:var(--muted);letter-spacing:.08em;
-  margin-bottom:28px;box-shadow:0 4px 16px rgba(18,12,4,.06);
+/* 模式选择 */
+.mode-section{max-width:900px;margin:0 auto;padding:0 40px 60px;position:relative;z-index:1}
+.mode-tabs{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px}
+.mode-tab{
+  background:white;border:2px solid var(--border);border-radius:20px;
+  padding:24px;cursor:pointer;transition:all .2s;text-align:left;
 }
-.hero-eyebrow::before{content:'';width:6px;height:6px;background:var(--warm);border-radius:50%;animation:pulse 2s ease-in-out infinite}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+.mode-tab:hover{border-color:var(--warm-pale)}
+.mode-tab.active{border-color:var(--warm);background:var(--warm-pale)}
+.mode-tab-icon{font-size:32px;margin-bottom:10px}
+.mode-tab-title{font-size:15px;font-weight:600;margin-bottom:4px}
+.mode-tab-desc{font-size:12px;color:var(--muted);line-height:1.6}
 
-.hero h1{
-  position:relative;z-index:1;
-  font-family:'Noto Serif SC',serif;
-  font-size:clamp(52px,8vw,96px);
-  font-weight:900;line-height:1.1;
-  letter-spacing:-.02em;margin-bottom:24px;
-}
-.hero h1 .line2{
-  display:block;
-  background:linear-gradient(135deg,var(--warm),var(--warm2),var(--gold));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-}
-.hero-sub{
-  position:relative;z-index:1;
-  font-size:17px;line-height:1.9;color:var(--muted);
-  max-width:500px;margin:0 auto 48px;
-}
+/* 上传卡片通用 */
+.upload-card{background:white;border-radius:24px;border:1px solid var(--border);box-shadow:var(--shadow);overflow:hidden;display:none}
+.upload-card.active{display:block}
+.upload-card-header{padding:20px 24px;border-bottom:1px solid var(--border)}
+.upload-card-title{font-size:14px;font-weight:600}
+.upload-body{padding:24px}
 
-/* 宠物表情滚动条 */
-.pet-ticker{
-  position:relative;z-index:1;
-  display:flex;gap:0;overflow:hidden;
-  width:100%;max-width:700px;margin:0 auto 48px;
-  border-radius:20px;background:white;
-  border:1px solid var(--border);box-shadow:0 4px 20px rgba(18,12,4,.06);
-  padding:16px 0;
-}
-.pet-ticker-inner{
-  display:flex;gap:24px;
-  animation:ticker 20s linear infinite;
-  white-space:nowrap;
-}
-.pet-ticker-inner:hover{animation-play-state:paused}
-@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.ticker-item{display:inline-flex;align-items:center;gap:8px;padding:0 12px;font-size:13px;color:var(--muted);flex-shrink:0}
-.ticker-item span:first-child{font-size:22px}
-
-.hero-actions{position:relative;z-index:1;display:flex;gap:14px;align-items:center;justify-content:center;flex-wrap:wrap}
-.btn-hero{
-  background:linear-gradient(135deg,var(--warm),var(--warm2));
-  color:white;border:none;padding:16px 36px;border-radius:100px;
-  font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;
-  display:inline-flex;align-items:center;gap:10px;
-  box-shadow:0 8px 32px rgba(212,98,42,.35);
-  transition:all .25s;
-}
-.btn-hero:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(212,98,42,.45)}
-.btn-ghost{
-  background:transparent;color:var(--ink);
-  border:1.5px solid var(--border);padding:16px 32px;
-  border-radius:100px;font-size:15px;cursor:pointer;font-family:inherit;
-  display:inline-flex;align-items:center;gap:8px;transition:all .2s;
-}
-.btn-ghost:hover{border-color:var(--warm);color:var(--warm)}
-
-/* 浮动统计 */
-.hero-stats{
-  position:relative;z-index:1;
-  display:flex;gap:0;margin-top:60px;
-  background:white;border-radius:20px;border:1px solid var(--border);
-  box-shadow:0 4px 20px rgba(18,12,4,.06);overflow:hidden;
-}
-.hero-stat{padding:20px 36px;text-align:center;border-right:1px solid var(--border)}
-.hero-stat:last-child{border-right:none}
-.stat-n{font-family:'Noto Serif SC',serif;font-size:28px;font-weight:900;color:var(--warm)}
-.stat-l{font-size:11px;color:var(--muted);margin-top:2px;letter-spacing:.04em}
-
-/* ── 上传区 ── */
-.upload-section{
-  padding:80px 56px;max-width:1100px;margin:0 auto;
-  display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;
-}
-.upload-left{}
-.upload-eyebrow{font-size:11px;letter-spacing:.14em;color:var(--warm);text-transform:uppercase;font-weight:600;margin-bottom:12px}
-.upload-title{font-family:'Noto Serif SC',serif;font-size:clamp(28px,3.5vw,42px);font-weight:700;line-height:1.2;margin-bottom:16px}
-.upload-desc{font-size:14px;line-height:1.9;color:var(--muted);margin-bottom:28px}
-.steps-list{display:flex;flex-direction:column;gap:14px}
-.step-item{display:flex;align-items:center;gap:14px}
-.step-num{width:32px;height:32px;background:var(--warm);color:white;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
-.step-text{font-size:13px;color:var(--muted);line-height:1.5}
-.step-text strong{color:var(--ink);font-weight:500}
-
-.upload-right{}
-.upload-card{background:white;border-radius:24px;border:1px solid var(--border);box-shadow:var(--shadow);overflow:hidden}
-.upload-card-header{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
-.upload-card-title{font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px}
-.upload-badge{font-size:10px;background:var(--warm-pale);color:var(--warm);padding:3px 10px;border-radius:100px;font-weight:500}
-.upload-body{padding:20px 24px}
-.drop-zone{
-  border:2px dashed rgba(212,98,42,.3);border-radius:18px;
-  padding:36px 24px;text-align:center;cursor:pointer;
-  transition:all .2s;background:var(--cream);position:relative;overflow:hidden;
-}
+/* 快速试穿：两个上传框并排 */
+.dual-upload{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+.drop-zone{border:2px dashed rgba(212,98,42,.3);border-radius:16px;padding:28px 16px;text-align:center;cursor:pointer;transition:all .2s;background:var(--cream);position:relative;overflow:hidden;min-height:160px;display:flex;flex-direction:column;align-items:center;justify-content:center}
 .drop-zone:hover{border-color:var(--warm);background:var(--warm-pale)}
-.drop-zone.has-img{border-style:solid;border-color:var(--warm);padding:0;cursor:default}
-#pet-preview{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:16px;display:none}
-#file-input{display:none}
-.drop-icon{font-size:44px;margin-bottom:12px}
-.drop-title{font-size:14px;font-weight:500;margin-bottom:6px}
-.drop-hint{font-size:12px;color:var(--muted)}
+.drop-zone.has-img{border-style:solid;border-color:var(--warm);padding:0}
+.drop-zone img{width:100%;height:100%;object-fit:cover;border-radius:14px;position:absolute;inset:0;display:none}
+.drop-icon{font-size:36px;margin-bottom:8px}
+.drop-title{font-size:13px;font-weight:500;margin-bottom:4px}
+.drop-hint{font-size:11px;color:var(--muted)}
+
+.btn-gen-main{
+  width:100%;background:linear-gradient(135deg,var(--warm),var(--warm2));
+  color:white;border:none;padding:15px;border-radius:14px;
+  font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  box-shadow:0 6px 24px rgba(212,98,42,.3);transition:all .2s;
+}
+.btn-gen-main:hover:not(:disabled){transform:translateY(-2px)}
+.btn-gen-main:disabled{opacity:.5;cursor:not-allowed}
+
+/* 单图上传（AI推荐模式） */
+.single-upload{margin-bottom:16px}
+
+/* AI分析结果 */
 .ai-card{margin-top:16px;display:none}
 .ai-card.on{display:block}
 .ai-loading{background:var(--warm-pale);border-radius:14px;padding:16px 18px;display:flex;align-items:center;gap:12px}
@@ -176,486 +96,239 @@ nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:cen
 .ai-tip-label{font-size:10px;color:var(--warm);font-weight:600;margin-bottom:3px}
 .ai-warn{background:#FFF8F8;border-radius:10px;padding:8px 13px;margin-bottom:10px;font-size:11px;line-height:1.6;color:#C62828}
 .ai-styles{display:flex;gap:6px;flex-wrap:wrap}
-.ai-style-tag{padding:5px 14px;border-radius:100px;font-size:12px;font-weight:500;cursor:pointer;transition:all .15s}
+.ai-style-tag{padding:5px 14px;border-radius:100px;font-size:12px;font-weight:500;cursor:pointer}
 .ai-style-rec{background:var(--warm);color:white}
 .ai-style-other{background:white;color:var(--muted);border:1px solid var(--border)}
-.ai-style-other:hover{border-color:var(--warm);color:var(--warm)}
 .praise{font-size:11px;color:var(--muted);font-style:italic;margin-top:8px}
+.ai-error{background:#FFF3F3;border:1px solid #FFCDD2;border-radius:12px;padding:14px;font-size:12px;line-height:1.7;color:#C62828}
 #scroll-hint{display:none;text-align:center;margin-top:12px;font-size:12px;color:var(--muted)}
 
-/* ── 跑马灯 (分隔) ── */
-.marquee-section{
-  background:var(--ink);color:white;
-  padding:18px 0;overflow:hidden;
-  display:flex;gap:0;
-}
-.marquee-inner{
-  display:flex;gap:0;
-  animation:marquee 25s linear infinite;
-  white-space:nowrap;flex-shrink:0;
-}
+/* 跑马灯 */
+.marquee-section{background:var(--ink);color:white;padding:16px 0;overflow:hidden}
+.marquee-inner{display:flex;animation:marquee 25s linear infinite;white-space:nowrap}
 @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.marquee-item{padding:0 32px;font-size:13px;letter-spacing:.06em;opacity:.7;display:inline-flex;align-items:center;gap:10px}
-.marquee-dot{width:4px;height:4px;background:var(--warm);border-radius:50%;flex-shrink:0}
+.marquee-item{padding:0 28px;font-size:12px;opacity:.7;display:inline-flex;align-items:center;gap:8px}
+.marquee-dot{width:4px;height:4px;background:var(--warm);border-radius:50%}
 
-/* ── 宠物类型 ── */
-.animal-section{padding:80px 56px;max-width:1100px;margin:0 auto}
-.section-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:36px}
-.section-eyebrow{font-size:11px;letter-spacing:.14em;color:var(--warm);text-transform:uppercase;font-weight:600;margin-bottom:8px}
-.section-title{font-family:'Noto Serif SC',serif;font-size:clamp(24px,3vw,38px);font-weight:700;line-height:1.2}
-.animal-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
-.animal-card{
-  background:white;border-radius:20px;padding:24px 16px;
-  text-align:center;border:1.5px solid var(--border);
-  cursor:pointer;transition:all .22s;position:relative;overflow:hidden;
-}
-.animal-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--warm-pale),transparent);opacity:0;transition:opacity .2s}
-.animal-card:hover::before,.animal-card.on::before{opacity:1}
-.animal-card:hover,.animal-card.on{border-color:var(--warm);transform:translateY(-4px);box-shadow:0 12px 32px rgba(212,98,42,.12)}
-.animal-emoji-big{font-size:44px;margin-bottom:10px;position:relative;z-index:1}
-.animal-label{font-size:13px;font-weight:500;position:relative;z-index:1}
-.animal-cnt{font-size:11px;color:var(--muted);margin-top:3px;position:relative;z-index:1}
-
-/* ── 商品区 ── */
-.catalog-section{padding:0 56px 80px;max-width:1100px;margin:0 auto}
-.cat-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px;padding-bottom:20px;border-bottom:1px solid var(--border)}
-.cat-btn{
-  display:flex;align-items:center;gap:6px;
-  padding:9px 20px;border-radius:100px;font-size:13px;
-  border:1.5px solid var(--border);background:transparent;
-  cursor:pointer;font-family:inherit;color:var(--muted);transition:all .15s;
-}
-.cat-btn:hover,.cat-btn.on{border-color:var(--warm);color:var(--warm);background:var(--warm-pale)}
-.cat-cnt{font-size:10px;background:var(--border);padding:1px 7px;border-radius:100px}
-.cat-btn.on .cat-cnt{background:rgba(212,98,42,.15);color:var(--warm)}
-
-/* 商品网格 */
-.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(235px,1fr));gap:20px}
-.pcard{
-  background:white;border-radius:22px;overflow:hidden;
-  border:1.5px solid var(--border);cursor:pointer;
-  transition:all .22s;position:relative;
-}
-.pcard:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(18,12,4,.1);border-color:transparent}
+/* 商品区 */
+.catalog-section{padding:60px 56px;max-width:1100px;margin:0 auto}
+.section-eyebrow{font-size:11px;letter-spacing:.12em;color:var(--warm);text-transform:uppercase;font-weight:600;margin-bottom:8px}
+.section-title{font-family:'Noto Serif SC',serif;font-size:clamp(24px,3vw,38px);font-weight:700;margin-bottom:28px}
+.cat-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
+.cat-btn{padding:9px 18px;border-radius:100px;font-size:13px;border:1.5px solid var(--border);background:transparent;cursor:pointer;font-family:inherit;color:var(--muted)}
+.cat-btn.on{border-color:var(--warm);color:var(--warm);background:var(--warm-pale)}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px}
+.pcard{background:white;border-radius:20px;overflow:hidden;border:1.5px solid var(--border);cursor:pointer;transition:all .2s}
+.pcard:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(18,12,4,.1)}
 .pcard.rec{border-color:var(--warm);box-shadow:0 0 0 3px var(--warm-pale)}
 .pcard.sel{border-color:var(--sage);box-shadow:0 0 0 3px rgba(74,122,76,.12)}
-.pimg{
-  aspect-ratio:1/1;overflow:hidden;
-  background:var(--cream);position:relative;
-}
-.pimg img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
-.pcard:hover .pimg img{transform:scale(1.07)}
-.pimg-placeholder{
-  width:100%;height:100%;
-  display:flex;align-items:center;justify-content:center;
-  font-size:72px;
-  background:linear-gradient(135deg,var(--cream),var(--warm-pale));
-}
-.pbadges{position:absolute;top:10px;left:10px;display:flex;flex-direction:column;gap:4px;z-index:2}
-.pbadge{font-size:10px;padding:3px 9px;border-radius:100px;font-weight:600;color:white;display:inline-block}
+.pimg{aspect-ratio:1/1;overflow:hidden;background:var(--cream);position:relative}
+.pimg img{width:100%;height:100%;object-fit:cover}
+.pbadges{position:absolute;top:10px;left:10px;display:flex;flex-direction:column;gap:4px}
+.pbadge{font-size:10px;padding:3px 9px;border-radius:100px;font-weight:600;color:white}
 .pbadge-hot{background:var(--warm)}
 .pbadge-new{background:var(--sage)}
 .pbadge-rec{background:var(--gold)}
-.pbody{padding:16px 18px}
-.pname{font-size:14px;font-weight:600;margin-bottom:3px}
-.pcat{font-size:11px;color:var(--muted);margin-bottom:8px}
-.pdesc{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:10px}
-.psizes{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:12px}
-.psize{font-size:10px;padding:2px 8px;border-radius:6px;border:1px solid var(--border);color:var(--muted)}
+.pbody{padding:14px 16px}
+.pname{font-size:13px;font-weight:600;margin-bottom:3px}
+.pcat{font-size:11px;color:var(--muted);margin-bottom:6px}
+.pdesc{font-size:11px;color:var(--muted);line-height:1.5;margin-bottom:10px}
 .pfooter{display:flex;align-items:center;justify-content:space-between}
-.pprice{font-family:'Noto Serif SC',serif}
-.pprice-num{font-size:18px;font-weight:700;color:var(--warm)}
-.pprice-sub{font-size:10px;color:var(--muted)}
-.pbtn{
-  background:var(--ink);color:white;border:none;
-  padding:7px 16px;border-radius:100px;font-size:12px;
-  cursor:pointer;font-family:inherit;transition:all .15s;font-weight:500;
-}
-.pbtn:hover{background:var(--warm)}
+.pprice-num{font-size:16px;font-weight:700;color:var(--warm);font-family:'Noto Serif SC',serif}
+.pbtn{background:var(--ink);color:white;border:none;padding:6px 14px;border-radius:100px;font-size:11px;cursor:pointer;font-family:inherit}
 .pbtn.sel{background:var(--sage)}
 
-/* ── 试穿区 ── */
-.tryon-wrap{padding:0 56px 80px;max-width:1100px;margin:0 auto}
-.tryon-box{
-  background:var(--ink);border-radius:32px;padding:48px;
-  color:white;display:none;position:relative;overflow:hidden;
-}
+/* 试穿结果区 */
+.tryon-wrap{padding:0 56px 60px;max-width:900px;margin:0 auto}
+.tryon-box{background:var(--ink);border-radius:28px;padding:36px;color:white;display:none}
 .tryon-box.on{display:block}
-.tryon-box::before{
-  content:'';position:absolute;inset:0;
-  background:
-    radial-gradient(ellipse 60% 80% at 0% 50%,rgba(212,98,42,.2),transparent),
-    radial-gradient(ellipse 40% 60% at 100% 20%,rgba(201,148,58,.15),transparent);
-  pointer-events:none;
-}
-.tryon-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:36px;position:relative;z-index:1}
-.tryon-title{font-family:'Noto Serif SC',serif;font-size:26px;font-weight:700}
-.tryon-hint{font-size:12px;background:rgba(255,255,255,.1);padding:6px 14px;border-radius:100px;opacity:.7}
-.tryon-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;position:relative;z-index:1}
-.tcol-label{font-size:10px;letter-spacing:.1em;opacity:.5;text-transform:uppercase;margin-bottom:10px;font-weight:500}
-.tbox{
-  aspect-ratio:1/1;border-radius:20px;overflow:hidden;
-  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
-  display:flex;align-items:center;justify-content:center;position:relative;
-}
+.tryon-title{font-family:'Noto Serif SC',serif;font-size:22px;font-weight:700;margin-bottom:24px}
+.tryon-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.tcol-label{font-size:10px;opacity:.5;text-transform:uppercase;margin-bottom:8px}
+.tbox{aspect-ratio:1/1;border-radius:16px;overflow:hidden;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;position:relative}
 .tbox img{width:100%;height:100%;object-fit:cover}
-.tbox-empty{text-align:center;padding:20px;opacity:.4}
-.tbox-empty-icon{font-size:36px;margin-bottom:8px}
-.tbox-empty-text{font-size:12px;line-height:1.6}
-.tryon-actions{margin-top:28px;display:flex;gap:14px;align-items:center;position:relative;z-index:1}
-.btn-gen{
-  background:linear-gradient(135deg,var(--warm),var(--warm2));
-  color:white;border:none;padding:14px 32px;border-radius:100px;
-  font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;
-  display:flex;align-items:center;gap:8px;
-  box-shadow:0 6px 24px rgba(212,98,42,.4);transition:all .2s;
-}
-.btn-gen:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 10px 32px rgba(212,98,42,.5)}
-.btn-gen:disabled{opacity:.5;cursor:not-allowed;transform:none}
-.tryon-note{font-size:11px;opacity:.5;line-height:1.7}
+.tbox-empty{text-align:center;padding:16px;opacity:.4;font-size:12px}
 
-/* ── CTA ── */
-.cta-section{
-  margin:0 56px 80px;
-  background:linear-gradient(135deg,var(--warm) 0%,var(--warm2) 50%,var(--gold) 100%);
-  border-radius:32px;padding:72px 64px;
-  text-align:center;color:white;position:relative;overflow:hidden;
-}
-.cta-section::before{
-  content:'🐾';position:absolute;
-  font-size:300px;opacity:.06;
-  right:-60px;bottom:-60px;line-height:1;pointer-events:none;
-}
-.cta-eyebrow{font-size:11px;letter-spacing:.14em;opacity:.7;margin-bottom:14px;text-transform:uppercase}
-.cta-title{font-family:'Noto Serif SC',serif;font-size:clamp(28px,4vw,48px);font-weight:900;margin-bottom:14px;line-height:1.2}
-.cta-desc{font-size:15px;opacity:.8;margin-bottom:36px;line-height:1.7}
+/* CTA */
+.cta-section{margin:0 56px 80px;background:linear-gradient(135deg,var(--warm),var(--warm2),var(--gold));border-radius:32px;padding:60px 50px;text-align:center;color:white}
+.cta-title{font-family:'Noto Serif SC',serif;font-size:clamp(24px,3.5vw,40px);font-weight:900;margin-bottom:12px}
+.cta-desc{font-size:14px;opacity:.85;margin-bottom:28px}
 .cta-form{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
-.cta-input{
-  padding:14px 22px;border-radius:100px;border:none;
-  font-size:14px;width:280px;font-family:inherit;outline:none;
-  box-shadow:0 4px 16px rgba(0,0,0,.15);
-}
-.cta-btn{
-  background:var(--ink);color:white;border:none;
-  padding:14px 28px;border-radius:100px;font-size:14px;
-  font-weight:600;cursor:pointer;font-family:inherit;
-  transition:all .2s;box-shadow:0 4px 16px rgba(0,0,0,.2);
-}
-.cta-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
-#cta-msg{font-size:13px;margin-top:14px;opacity:0;transition:opacity .3s}
+.cta-input{padding:13px 20px;border-radius:100px;border:none;font-size:14px;width:260px;font-family:inherit;outline:none}
+.cta-btn{background:var(--ink);color:white;border:none;padding:13px 26px;border-radius:100px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit}
+#cta-msg{font-size:13px;margin-top:12px;opacity:0;transition:opacity .3s}
 
-/* ── FOOTER ── */
-footer{
-  padding:36px 56px;border-top:1px solid var(--border);
-  display:flex;align-items:center;justify-content:space-between;
-  font-size:12px;color:var(--muted);
-}
-.footer-links{display:flex;gap:24px}
-.footer-links a{color:var(--muted);text-decoration:none;transition:color .2s}
-.footer-links a:hover{color:var(--warm)}
+footer{padding:32px 56px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--muted)}
 
-/* ── 动画 ── */
-.reveal{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease}
-.reveal.on{opacity:1;transform:none}
+/* API Key 配置弹窗 */
+.modal-overlay{position:fixed;inset:0;background:rgba(18,12,4,.6);z-index:500;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.on{display:flex}
+.modal{background:white;border-radius:20px;padding:30px;max-width:440px;width:100%;max-height:88vh;overflow-y:auto}
+.modal-title{font-family:'Noto Serif SC',serif;font-size:18px;font-weight:700;margin-bottom:20px}
+.key-section{margin-bottom:22px;padding-bottom:22px;border-bottom:1px solid var(--border)}
+.key-section:last-of-type{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.key-label{font-size:13px;font-weight:600;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.key-tag{font-size:10px;padding:2px 8px;border-radius:100px;font-weight:500}
+.key-tag.a{background:var(--warm-pale);color:var(--warm)}
+.key-tag.b{background:#E8F5E9;color:#2E7D32}
+.key-hint{font-size:11px;color:var(--muted);line-height:1.6;margin-bottom:8px}
+.key-input{width:100%;padding:10px 14px;border-radius:10px;border:1.5px solid var(--border);font-size:13px;font-family:monospace;outline:none}
+.key-input:focus{border-color:var(--warm)}
+.key-save-btn{width:100%;margin-top:18px;padding:13px;background:var(--warm);color:white;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit}
+.key-cancel-btn{width:100%;margin-top:8px;padding:10px;background:transparent;border:none;font-size:13px;color:var(--muted);cursor:pointer;font-family:inherit}
 
-@media(max-width:1024px){
-  nav{padding:14px 28px}
-  .hero{padding:100px 28px 70px}
-  .upload-section{grid-template-columns:1fr;padding:60px 28px}
-  .animal-section{padding:60px 28px}
-  .catalog-section{padding:0 28px 60px}
-  .tryon-wrap{padding:0 28px 60px}
-  .tryon-cols{grid-template-columns:1fr 1fr}
-  .cta-section{margin:0 28px 60px;padding:48px 32px}
-  footer{padding:28px 28px;flex-direction:column;gap:14px;text-align:center}
-  .animal-grid{grid-template-columns:repeat(3,1fr)}
-}
 @media(max-width:768px){
-  nav{padding:12px 18px}
-  .nav-r a:not(.nav-pill){display:none}
-  .hero h1{font-size:clamp(40px,10vw,64px)}
-  .hero-stats{flex-direction:column;gap:0}
-  .hero-stat{border-right:none;border-bottom:1px solid var(--border)}
-  .upload-section,.animal-section,.catalog-section,.tryon-wrap{padding-left:18px;padding-right:18px}
+  nav{padding:14px 20px}
+  .nav-r a{display:none}
+  .hero{padding:100px 20px 40px}
+  .mode-section{padding:0 20px 40px}
+  .mode-tabs{grid-template-columns:1fr}
+  .dual-upload{grid-template-columns:1fr}
+  .catalog-section{padding:40px 20px}
+  .tryon-wrap{padding:0 20px 40px}
   .tryon-cols{grid-template-columns:1fr}
-  .tryon-box{padding:28px 20px}
-  .cta-section{margin:0 18px 60px;padding:36px 20px}
-  .animal-grid{grid-template-columns:repeat(2,1fr)}
+  .cta-section{margin:0 20px 60px;padding:40px 24px}
+  footer{padding:24px 20px;flex-direction:column;gap:12px;text-align:center}
 }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
-  <a class="logo" href="#">
-    <div class="logo-mark">🐾</div>
-    <div class="logo-name">毛小样 <span>PetFit</span></div>
-  </a>
+  <a class="logo" href="#"><div class="logo-mark">🐾</div><div class="logo-name">毛小样 <span>PetFit</span></div></a>
   <div class="nav-r">
     <a href="#catalog">服装</a>
-    <a href="#tryon-wrap">试穿</a>
-    <a href="#cta">加入</a>
-    <a href="#cta" class="nav-pill">免费体验</a>
+    <button class="nav-key-btn" onclick="showKeyModal()">⚙️ API 配置</button>
   </div>
 </nav>
 
-<!-- ════ HERO ════ -->
 <section class="hero">
   <div class="hero-bg"></div>
-  <!-- 飘动爪印 -->
-  <div class="paw" style="--s:80px;--o:0.06;--d:6s;--delay:0s;--r:-15deg;top:15%;left:8%">🐾</div>
-  <div class="paw" style="--s:50px;--o:0.04;--d:8s;--delay:1s;--r:20deg;top:25%;right:10%">🐾</div>
-  <div class="paw" style="--s:100px;--o:0.05;--d:7s;--delay:2s;--r:-8deg;bottom:20%;left:5%">🐾</div>
-  <div class="paw" style="--s:60px;--o:0.04;--d:9s;--delay:0.5s;--r:12deg;bottom:30%;right:8%">🐾</div>
-  <div class="paw" style="--s:40px;--o:0.06;--d:5s;--delay:1.5s;--r:-20deg;top:60%;left:15%">🐾</div>
-
-  <div class="hero-eyebrow">✦ AI 宠物穿搭顾问 · 上传照片即可开始</div>
-
-  <h1>
-    毛孩子的<br>
-    <span class="line2">专属穿搭间</span>
-  </h1>
-
-  <p class="hero-sub">
-    上传一张照片，AI 3秒识别品种体型毛发，
-    精准推荐最适合的服装风格，一键试穿看效果，满意再下单。
-  </p>
-
-  <!-- 滚动标签 -->
-  <div class="pet-ticker">
-    <div class="pet-ticker-inner" id="ticker">
-      <span class="ticker-item"><span>🐕</span>柴犬 · 可爱系</span>
-      <span class="ticker-item"><span>🐱</span>英短 · 优雅系</span>
-      <span class="ticker-item"><span>🐩</span>贵宾 · 潮流系</span>
-      <span class="ticker-item"><span>🐕‍🦺</span>金毛 · 户外系</span>
-      <span class="ticker-item"><span>🐈</span>橘猫 · 可爱系</span>
-      <span class="ticker-item"><span>🐇</span>兔子 · 节日系</span>
-      <span class="ticker-item"><span>🐶</span>泰迪 · 运动系</span>
-      <span class="ticker-item"><span>🐱</span>布偶 · 优雅系</span>
-      <!-- 复制一遍实现无缝 -->
-      <span class="ticker-item"><span>🐕</span>柴犬 · 可爱系</span>
-      <span class="ticker-item"><span>🐱</span>英短 · 优雅系</span>
-      <span class="ticker-item"><span>🐩</span>贵宾 · 潮流系</span>
-      <span class="ticker-item"><span>🐕‍🦺</span>金毛 · 户外系</span>
-      <span class="ticker-item"><span>🐈</span>橘猫 · 可爱系</span>
-      <span class="ticker-item"><span>🐇</span>兔子 · 节日系</span>
-      <span class="ticker-item"><span>🐶</span>泰迪 · 运动系</span>
-      <span class="ticker-item"><span>🐱</span>布偶 · 优雅系</span>
-    </div>
-  </div>
-
-  <div class="hero-actions">
-    <button class="btn-hero" onclick="document.getElementById('file-input').click()">
-      📸 上传宠物照片，开始穿搭
-    </button>
-    <button class="btn-ghost" onclick="document.getElementById('catalog').scrollIntoView({behavior:'smooth'})">
-      浏览服装系列 →
-    </button>
-  </div>
-
-  <div class="hero-stats">
-    <div class="hero-stat"><div class="stat-n">3s</div><div class="stat-l">AI识别速度</div></div>
-    <div class="hero-stat"><div class="stat-n">5+</div><div class="stat-l">宠物种类</div></div>
-    <div class="hero-stat"><div class="stat-n">35+</div><div class="stat-l">服装款式</div></div>
-    <div class="hero-stat"><div class="stat-n">¥30起</div><div class="stat-l">亲民价格</div></div>
-  </div>
+  <div class="hero-eyebrow">✦ AI 宠物穿搭顾问</div>
+  <h1>毛孩子的<br><span class="accent">专属穿搭间</span></h1>
+  <p class="hero-sub">两种方式开始：已经有想试穿的素材就直接合成，没有主意就让 AI 帮你推荐。</p>
 </section>
 
-<!-- ════ 跑马灯 ════ -->
 <div class="marquee-section">
   <div class="marquee-inner">
     <span class="marquee-item"><span class="marquee-dot"></span>AI精准分析</span>
     <span class="marquee-item"><span class="marquee-dot"></span>品种识别</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>体型评估</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>毛发特征</span>
     <span class="marquee-item"><span class="marquee-dot"></span>一键试穿</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>亲民价格</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>狗狗穿搭</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>猫咪时尚</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>真实合成</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>狗狗猫咪通用</span>
     <span class="marquee-item"><span class="marquee-dot"></span>AI精准分析</span>
     <span class="marquee-item"><span class="marquee-dot"></span>品种识别</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>体型评估</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>毛发特征</span>
     <span class="marquee-item"><span class="marquee-dot"></span>一键试穿</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>亲民价格</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>狗狗穿搭</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>猫咪时尚</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>真实合成</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>狗狗猫咪通用</span>
   </div>
 </div>
 
-<!-- ════ 上传 + AI分析 ════ -->
-<section class="upload-section reveal">
-  <div class="upload-left">
-    <div class="upload-eyebrow">AI 智能分析</div>
-    <div class="upload-title">上传照片<br>AI 帮你选最适合的</div>
-    <p class="upload-desc">
-      不知道给毛孩子买什么款式？上传一张照片，
-      AI 深度分析品种、体型、毛发质感，给出专属穿搭建议，
-      不满意还可以自己换风格。
-    </p>
-    <div class="steps-list">
-      <div class="step-item">
-        <div class="step-num">1</div>
-        <div class="step-text"><strong>上传照片</strong> — 正面或侧面，越清晰越准确</div>
-      </div>
-      <div class="step-item">
-        <div class="step-num">2</div>
-        <div class="step-text"><strong>AI 分析</strong> — 3秒识别品种体型毛发，给出穿搭建议</div>
-      </div>
-      <div class="step-item">
-        <div class="step-num">3</div>
-        <div class="step-text"><strong>选款试穿</strong> — 从推荐款式中选择，生成试穿效果图</div>
-      </div>
-      <div class="step-item">
-        <div class="step-num">4</div>
-        <div class="step-text"><strong>满意下单</strong> — 效果满意一键跳转购买</div>
-      </div>
+<!-- 模式选择 + 上传区 -->
+<section class="mode-section">
+  <div class="mode-tabs">
+    <div class="mode-tab active" id="tab-quick" onclick="switchMode('quick')">
+      <div class="mode-tab-icon">⚡</div>
+      <div class="mode-tab-title">快速试穿</div>
+      <div class="mode-tab-desc">已经有宠物照片和想试穿的衣服照片，直接合成效果图</div>
+    </div>
+    <div class="mode-tab" id="tab-ai" onclick="switchMode('ai')">
+      <div class="mode-tab-icon">🔍</div>
+      <div class="mode-tab-title">AI 智能推荐</div>
+      <div class="mode-tab-desc">只有宠物照片，让 AI 分析特征并从商品库推荐适合款式</div>
     </div>
   </div>
 
-  <div class="upload-right">
-    <div class="upload-card">
-      <div class="upload-card-header">
-        <div class="upload-card-title">📸 上传你的宠物照片</div>
-        <div class="upload-badge">Gemini AI 驱动</div>
-      </div>
-      <div class="upload-body">
-        <div class="drop-zone" id="upload-box" onclick="triggerUpload()">
-          <img id="pet-preview" src="" alt="">
-          <div id="upload-ph">
+  <!-- 快速试穿卡片 -->
+  <div class="upload-card active" id="card-quick">
+    <div class="upload-card-header"><div class="upload-card-title">⚡ 上传两张图片，直接生成试穿效果</div></div>
+    <div class="upload-body">
+      <div class="dual-upload">
+        <div class="drop-zone" id="quick-pet-zone" onclick="document.getElementById('quick-pet-input').click()">
+          <img id="quick-pet-preview" src="" alt="">
+          <div id="quick-pet-ph">
             <div class="drop-icon">🐶</div>
-            <div class="drop-title">点击或拖拽上传照片</div>
+            <div class="drop-title">宠物照片</div>
+            <div class="drop-hint">点击上传</div>
+          </div>
+        </div>
+        <div class="drop-zone" id="quick-cloth-zone" onclick="document.getElementById('quick-cloth-input').click()">
+          <img id="quick-cloth-preview" src="" alt="">
+          <div id="quick-cloth-ph">
+            <div class="drop-icon">👕</div>
+            <div class="drop-title">衣服照片</div>
+            <div class="drop-hint">点击上传</div>
+          </div>
+        </div>
+      </div>
+      <input type="file" id="quick-pet-input" accept="image/*" style="display:none" onchange="handleQuickUpload(this,'pet')">
+      <input type="file" id="quick-cloth-input" accept="image/*" style="display:none" onchange="handleQuickUpload(this,'cloth')">
+      <button class="btn-gen-main" id="quick-gen-btn" onclick="generateQuickTryon()">✨ 生成试穿效果图</button>
+    </div>
+  </div>
+
+  <!-- AI推荐卡片 -->
+  <div class="upload-card" id="card-ai">
+    <div class="upload-card-header"><div class="upload-card-title">🔍 上传宠物照片，AI 自动分析推荐</div></div>
+    <div class="upload-body">
+      <div class="single-upload">
+        <div class="drop-zone" id="ai-pet-zone" onclick="document.getElementById('ai-pet-input').click()" style="min-height:200px">
+          <img id="ai-pet-preview" src="" alt="">
+          <div id="ai-pet-ph">
+            <div class="drop-icon">🐶</div>
+            <div class="drop-title">点击上传宠物照片</div>
             <div class="drop-hint">支持 JPG / PNG · 建议正面或侧面照</div>
           </div>
         </div>
-        <input type="file" id="file-input" accept="image/*" onchange="handleUpload(this)">
+        <input type="file" id="ai-pet-input" accept="image/*" style="display:none" onchange="handleAIUpload(this)">
+      </div>
 
-        <div class="ai-card" id="ai-card">
-          <div class="ai-loading" id="ai-loading">
-            <div class="spinner"></div>
-            <div>
-              <div style="font-size:13px;font-weight:500;color:var(--warm)">AI 正在分析你的宠物...</div>
-              <div style="font-size:11px;color:var(--muted);margin-top:2px">识别品种 · 体型 · 毛发特征</div>
-            </div>
-          </div>
-          <div class="ai-result" id="ai-result">
-            <div class="ai-top">
-              <div class="ai-avatar" id="ai-avatar">🐾</div>
-              <div>
-                <div class="ai-name" id="ai-name">-</div>
-                <div class="ai-sub" id="ai-sub">-</div>
-              </div>
-            </div>
-            <div class="ai-grid" id="ai-grid"></div>
-            <div class="ai-tip"><div class="ai-tip-label">💡 穿搭建议</div><div id="ai-tip-text"></div></div>
-            <div class="ai-warn" id="ai-warn"></div>
-            <div class="ai-styles" id="ai-styles"></div>
-            <div class="praise" id="ai-praise"></div>
+      <div class="ai-card" id="ai-card">
+        <div class="ai-loading" id="ai-loading">
+          <div class="spinner"></div>
+          <div>
+            <div style="font-size:13px;font-weight:500;color:var(--warm)">AI 正在分析你的宠物...</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:2px">识别品种 · 体型 · 毛发特征</div>
           </div>
         </div>
-        <div id="scroll-hint">👇 已高亮推荐款式，点击选择后可一键试穿</div>
+        <div class="ai-result" id="ai-result"></div>
+        <div class="ai-error" id="ai-error" style="display:none"></div>
       </div>
+      <div id="scroll-hint">👇 已高亮推荐款式，点击选择后可一键试穿</div>
     </div>
   </div>
 </section>
 
-<!-- ════ 宠物类型 ════ -->
-<section class="animal-section reveal">
-  <div class="section-header">
-    <div>
-      <div class="section-eyebrow">宠物类型</div>
-      <div class="section-title">为不同毛孩子<br>量身打造</div>
-    </div>
-  </div>
-  <div class="animal-grid">
-    <div class="animal-card on" onclick="filterAnimal('全部',this)">
-      <div class="animal-emoji-big">🐾</div>
-      <div class="animal-label">全部</div>
-      <div class="animal-cnt">35+ 款</div>
-    </div>
-    <div class="animal-card" onclick="filterAnimal('狗狗',this)">
-      <div class="animal-emoji-big">🐕</div>
-      <div class="animal-label">狗狗</div>
-      <div class="animal-cnt">20+ 款</div>
-    </div>
-    <div class="animal-card" onclick="filterAnimal('猫咪',this)">
-      <div class="animal-emoji-big">🐱</div>
-      <div class="animal-label">猫咪</div>
-      <div class="animal-cnt">10+ 款</div>
-    </div>
-    <div class="animal-card" onclick="filterAnimal('通用',this)">
-      <div class="animal-emoji-big">🐰</div>
-      <div class="animal-label">通用款</div>
-      <div class="animal-cnt">5+ 款</div>
-    </div>
-    <div class="animal-card" onclick="filterAnimal('其他',this)">
-      <div class="animal-emoji-big">🦜</div>
-      <div class="animal-label">其他</div>
-      <div class="animal-cnt">即将上线</div>
-    </div>
-  </div>
-</section>
-
-<!-- ════ 商品 ════ -->
-<section class="catalog-section reveal" id="catalog">
-  <div class="section-eyebrow" style="margin-bottom:8px">服装系列</div>
-  <div class="section-title" style="margin-bottom:28px">为毛孩子设计<br>每一件都有故事</div>
-
+<!-- 商品区（AI推荐模式用） -->
+<section class="catalog-section" id="catalog">
+  <div class="section-eyebrow">服装系列</div>
+  <div class="section-title">为毛孩子设计<br>每一件都有故事</div>
   <div class="cat-bar">
-    <button class="cat-btn on" onclick="filterCat('全部',this)">全部 <span class="cat-cnt">10</span></button>
-    <button class="cat-btn" onclick="filterCat('可爱',this)">🧸 可爱 <span class="cat-cnt">2</span></button>
-    <button class="cat-btn" onclick="filterCat('潮流',this)">🏀 潮流 <span class="cat-cnt">2</span></button>
-    <button class="cat-btn" onclick="filterCat('优雅',this)">👗 优雅 <span class="cat-cnt">2</span></button>
-    <button class="cat-btn" onclick="filterCat('户外',this)">🌿 户外 <span class="cat-cnt">2</span></button>
-    <button class="cat-btn" onclick="filterCat('节日',this)">🎄 节日 <span class="cat-cnt">2</span></button>
+    <button class="cat-btn on" onclick="filterCat('全部',this)">全部</button>
+    <button class="cat-btn" onclick="filterCat('可爱',this)">🧸 可爱</button>
+    <button class="cat-btn" onclick="filterCat('潮流',this)">🏀 潮流</button>
+    <button class="cat-btn" onclick="filterCat('优雅',this)">👗 优雅</button>
+    <button class="cat-btn" onclick="filterCat('户外',this)">🌿 户外</button>
+    <button class="cat-btn" onclick="filterCat('节日',this)">🎄 节日</button>
   </div>
-
   <div class="pgrid" id="pgrid"></div>
 </section>
 
-<!-- ════ 试穿 ════ -->
+<!-- 试穿结果 -->
 <div class="tryon-wrap" id="tryon-wrap">
   <div class="tryon-box" id="tryon-box">
-    <div class="tryon-head">
-      <div class="tryon-title">✨ 一键试穿效果图</div>
-      <div class="tryon-hint">AI 生成 · 约20秒</div>
-    </div>
+    <div class="tryon-title">✨ 试穿效果</div>
     <div class="tryon-cols">
-      <div>
-        <div class="tcol-label">你的宠物</div>
-        <div class="tbox" id="t-pet">
-          <div class="tbox-empty"><div class="tbox-empty-icon">📸</div><div class="tbox-empty-text">请先上传<br>宠物照片</div></div>
-        </div>
-      </div>
-      <div>
-        <div class="tcol-label">选中款式</div>
-        <div class="tbox" id="t-cloth">
-          <div class="tbox-empty"><div class="tbox-empty-icon">👕</div><div class="tbox-empty-text">从下方选择<br>服装款式</div></div>
-        </div>
-        <div id="t-cloth-info" style="margin-top:10px;font-size:12px;opacity:.7"></div>
-      </div>
-      <div>
-        <div class="tcol-label">试穿效果</div>
-        <div class="tbox" id="t-result" style="position:relative">
-          <div class="tbox-empty" id="t-result-empty"><div class="tbox-empty-icon">✨</div><div class="tbox-empty-text">点击生成<br>效果图</div></div>
-          <img id="t-result-img" src="" alt="" style="display:none;width:100%;height:100%;object-fit:cover">
-          <div id="t-result-badge" style="display:none;position:absolute;bottom:10px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.6);color:white;font-size:10px;padding:4px 10px;border-radius:100px;white-space:nowrap">AI 生成效果图</div>
-        </div>
-      </div>
-    </div>
-    <div class="tryon-actions">
-      <button class="btn-gen" id="btn-gen" onclick="generateTryon()">✨ 生成试穿效果图</button>
-      <div class="tryon-note">效果图由 Pollinations.ai 免费生成<br>约需20-30秒，仅供参考</div>
+      <div><div class="tcol-label">宠物</div><div class="tbox" id="t-pet"><div class="tbox-empty">等待上传</div></div></div>
+      <div><div class="tcol-label">服装</div><div class="tbox" id="t-cloth"><div class="tbox-empty">等待选择</div></div></div>
+      <div><div class="tcol-label">合成效果</div><div class="tbox" id="t-result"><div class="tbox-empty" id="t-result-empty">等待生成</div></div></div>
     </div>
   </div>
 </div>
 
-<!-- ════ CTA ════ -->
-<div class="cta-section reveal" id="cta">
-  <div class="cta-eyebrow">加入候补名单</div>
-  <div class="cta-title">新款上线<br>第一时间通知你</div>
-  <p class="cta-desc">已有 312 位宠物主加入候补 · 不发垃圾信息</p>
+<div class="cta-section" id="cta">
+  <div class="cta-title">新款上线第一时间通知你</div>
+  <p class="cta-desc">已有 312 位宠物主加入候补</p>
   <div class="cta-form">
     <input class="cta-input" id="cta-input" placeholder="微信号 或 邮箱地址">
     <button class="cta-btn" onclick="submitCTA()">🐾 加入候补</button>
@@ -664,262 +337,244 @@ footer{
 </div>
 
 <footer>
-  <a class="logo" href="#" style="text-decoration:none;color:var(--ink)">
-    <div class="logo-mark">🐾</div>
-    <div class="logo-name">毛小样 <span>PetFit</span></div>
-  </a>
-  <div style="font-size:13px;color:var(--muted)">每一只宠物都值得最好的穿搭</div>
-  <div class="footer-links">
-    <a href="#">关于我们</a>
-    <a href="#">联系我们</a>
-  </div>
+  <a class="logo" href="#" style="text-decoration:none;color:var(--ink)"><div class="logo-mark">🐾</div><div class="logo-name">毛小样 <span>PetFit</span></div></a>
+  <div>每一只宠物都值得最好的穿搭</div>
 </footer>
+
+<!-- API Key 配置弹窗 -->
+<div class="modal-overlay" id="key-modal">
+  <div class="modal">
+    <div class="modal-title">API 配置</div>
+
+    <!-- ════════════════════════════════════════
+         DeepSeek API Key（用于宠物照片分析）
+         获取地址：https://platform.deepseek.com
+         ════════════════════════════════════════ -->
+    <div class="key-section">
+      <div class="key-label">🔍 DeepSeek API Key <span class="key-tag a">宠物分析</span></div>
+      <div class="key-hint">
+        去 <a href="https://platform.deepseek.com" target="_blank" style="color:var(--warm)">platform.deepseek.com</a> 注册并创建 Key<br>
+        <span style="opacity:.7">如果该模型不支持图片，需要在 api/analyze.js 里换成支持视觉的模型</span>
+      </div>
+      <input class="key-input" id="deepseek-key-input" type="password" placeholder="填入 DeepSeek API Key">
+    </div>
+
+    <!-- ════════════════════════════════════════
+         火山引擎 API Key（用于生成试穿效果图）
+         获取地址：https://console.volcengine.com/ark
+         ════════════════════════════════════════ -->
+    <div class="key-section">
+      <div class="key-label">✨ 火山引擎 API Key <span class="key-tag b">生成试穿图</span></div>
+      <div class="key-hint">
+        去 <a href="https://console.volcengine.com/ark" target="_blank" style="color:var(--warm)">console.volcengine.com/ark</a> → API Key 管理 → 创建<br>
+        <span style="opacity:.7">需要账号里已开通 Doubao-Seedream 图片生成模型</span>
+      </div>
+      <input class="key-input" id="volcano-key-input" type="password" placeholder="填入火山引擎 API Key">
+    </div>
+
+    <button class="key-save-btn" onclick="saveKeys()">保存配置</button>
+    <button class="key-cancel-btn" onclick="closeKeyModal()">取消</button>
+  </div>
+</div>
 
 <script>
 /* ══════════════════════════════════════
-   Gemini API Key
-   获取：https://aistudio.google.com/apikey
-   ══════════════════════════════════════ */
-const GEMINI_KEY = 'AIzaSyDVJdRp7Ik4LQoXHlHpFx2ouApqy8eWqSU';
-
-/* ══════════════════════════════════════
-   真实商品数据（来自1688，价格×3零售）
+   真实商品数据
    ══════════════════════════════════════ */
 const PRODUCTS = [
-  // ── 可爱系 ──
-  {
-    id:1, cat:'可爱', animal:'通用',
-    name:'萌趣针织小毛衣',
-    price:'¥29', badge:'hot',
-    sizes:['XS','S','M','L'],
-    desc:'柔软亲肤针织面料，活泼可爱风格，秋冬保暖首选。',
-    img:'https://cbu01.alicdn.com/img/ibank/O1CN01mjbwM71PpfDm9I4w4_!!2210157861890-0-cib.jpg',
-    link:'https://detail.1688.com/offer/634475706197.html',
-    keyword:'cute knit pet sweater'
-  },
-  {
-    id:2, cat:'可爱', animal:'通用',
-    name:'甜心印花连身装',
-    price:'¥35', badge:'new',
-    sizes:['XS','S','M'],
-    desc:'甜美印花图案，一体式穿脱设计，让毛孩子萌翻全场。',
-    img:'https://cbu01.alicdn.com/img/ibank/O1CN01Ql4oGf1vGSg4kIvju_!!2210898346145-0-cib.jpg',
-    link:'https://detail.1688.com/offer/726258353496.html',
-    keyword:'cute print pet romper'
-  },
-  // ── 潮流系 ──
-  {
-    id:3, cat:'潮流', animal:'狗狗',
-    name:'街头潮流卫衣',
-    price:'¥118', badge:'hot',
-    sizes:['S','M','L','XL'],
-    desc:'潮流街头风设计，厚实棉质面料，上街回头率极高。',
-    img:'https://cbu01.alicdn.com/img/ibank/O1CN017Pmy6U21uCxLC17zR_!!2815757044-0-cib.jpg',
-    link:'https://detail.1688.com/offer/864882980543.html',
-    keyword:'streetwear dog hoodie cool'
-  },
-  {
-    id:4, cat:'潮流', animal:'狗狗',
-    name:'酷帅印花T恤',
-    price:'¥78', badge:'',
-    sizes:['XS','S','M','L'],
-    desc:'时尚印花图案，轻薄透气，春夏日常百搭单品。',
-    img:'https://cbu01.alicdn.com/img/ibank/O1CN01wZ4le925gFJV3eLZY_!!3085457555-0-cib.jpg',
-    link:'https://detail.1688.com/offer/754353316695.html',
-    keyword:'cool print dog t-shirt fashion'
-  },
-  // ── 优雅系 ──
-  {
-    id:5, cat:'优雅', animal:'通用',
-    name:'公主蕾丝裙',
-    price:'¥84', badge:'hot',
-    sizes:['XS','S','M'],
-    desc:'精致蕾丝工艺，层叠裙摆设计，拍照出片率超高。',
-    img:'https://cbu01.alicdn.com/img/ibank/O1CN01QEulr71Ye48yk0cMb_!!2909243083-0-cib.jpg',
-    link:'https://detail.1688.com/offer/815961891696.html',
-    keyword:'elegant lace princess dog dress'
-  },
-  {
-    id:6, cat:'优雅', animal:'通用',
-    name:'绅士格纹西装',
-    price:'¥53', badge:'new',
-    sizes:['XS','S','M','L'],
-    desc:'经典格纹面料，翻领设计，聚会约会都能撑场面。',
-    img:'https://cbu01.alicdn.com/img/ibank/O1CN01m0Vs191kaCFAeWANw_!!2218430824699-0-cib.jpg',
-    link:'https://detail.1688.com/offer/1036448203382.html',
-    keyword:'plaid formal dog suit elegant'
-  },
-  // ── 户外系 ──
-  {
-    id:7, cat:'户外', animal:'狗狗',
-    name:'防风冲锋外套',
-    price:'¥93', badge:'hot',
-    sizes:['S','M','L','XL'],
-    desc:'防水防风面料，拉链设计便于穿脱，户外遛弯必备。',
-    img:'https://cbu01.alicdn.com/img/ibank/O1CN01rFOWlP26w6eMBwpAZ_!!2207603667725-0-cib.jpg',
-    link:'https://detail.1688.com/offer/899936679361.html',
-    keyword:'waterproof dog outdoor jacket'
-  },
-  {
-    id:8, cat:'户外', animal:'狗狗',
-    name:'活力运动背心',
-    price:'¥169', badge:'',
-    sizes:['S','M','L','XL','XXL'],
-    desc:'透气网眼面料，多色可选，适合各种体型的狗狗。',
-    img:'https://cbu01.alicdn.com/img/ibank/O1CN011roMp62APMnYHuUHX_!!2743028195-0-cib.jpg',
-    link:'https://detail.1688.com/offer/892277783081.html',
-    keyword:'breathable dog sports vest outdoor'
-  },
-  // ── 节日系 ──
-  {
-    id:9, cat:'节日', animal:'通用',
-    name:'节日喜庆套装',
-    price:'¥33', badge:'hot',
-    sizes:['XS','S','M','L'],
-    desc:'节日限定设计，喜庆配色，过节拍照必备神器。',
-    img:'https://cbu01.alicdn.com/img/ibank/O1CN017dp3Jk20cy9bv2PKo_!!2201282426871-0-cib.jpg',
-    link:'https://detail.1688.com/offer/688858599236.html',
-    keyword:'pet festival holiday costume'
-  },
-  {
-    id:10, cat:'节日', animal:'通用',
-    name:'可爱主题派对装',
-    price:'¥57', badge:'new',
-    sizes:['XS','S','M','L'],
-    desc:'派对主题设计，精致做工，让毛孩子成为派对焦点。',
-    img:'https://cbu01.alicdn.com/img/ibank/O1CN012I2SE01tecaZo23Jh_!!2207588245927-0-cib.jpg',
-    link:'https://detail.1688.com/offer/997132538817.html',
-    keyword:'cute pet party costume festival'
-  },
+  { id:1, cat:'可爱', name:'萌趣针织小毛衣', price:'¥29', badge:'hot', desc:'柔软亲肤针织面料，秋冬保暖首选。',
+    img:'https://cbu01.alicdn.com/img/ibank/O1CN01mjbwM71PpfDm9I4w4_!!2210157861890-0-cib.jpg' },
+  { id:2, cat:'可爱', name:'甜心印花连身装', price:'¥35', badge:'new', desc:'甜美印花图案，一体式穿脱设计。',
+    img:'https://cbu01.alicdn.com/img/ibank/O1CN01Ql4oGf1vGSg4kIvju_!!2210898346145-0-cib.jpg' },
+  { id:3, cat:'潮流', name:'街头潮流卫衣', price:'¥118', badge:'hot', desc:'潮流街头风设计，厚实棉质面料。',
+    img:'https://cbu01.alicdn.com/img/ibank/O1CN017Pmy6U21uCxLC17zR_!!2815757044-0-cib.jpg' },
+  { id:4, cat:'潮流', name:'酷帅印花T恤', price:'¥78', badge:'', desc:'时尚印花图案，轻薄透气。',
+    img:'https://cbu01.alicdn.com/img/ibank/O1CN01wZ4le925gFJV3eLZY_!!3085457555-0-cib.jpg' },
+  { id:5, cat:'优雅', name:'公主蕾丝裙', price:'¥84', badge:'hot', desc:'精致蕾丝工艺，层叠裙摆设计。',
+    img:'https://cbu01.alicdn.com/img/ibank/O1CN01QEulr71Ye48yk0cMb_!!2909243083-0-cib.jpg' },
+  { id:6, cat:'优雅', name:'绅士格纹西装', price:'¥53', badge:'new', desc:'经典格纹面料，翻领设计。',
+    img:'https://cbu01.alicdn.com/img/ibank/O1CN01m0Vs191kaCFAeWANw_!!2218430824699-0-cib.jpg' },
+  { id:7, cat:'户外', name:'防风冲锋外套', price:'¥93', badge:'hot', desc:'防水防风面料，户外遛弯必备。',
+    img:'https://cbu01.alicdn.com/img/ibank/O1CN01rFOWlP26w6eMBwpAZ_!!2207603667725-0-cib.jpg' },
+  { id:8, cat:'户外', name:'活力运动背心', price:'¥169', badge:'', desc:'透气网眼面料，多色可选。',
+    img:'https://cbu01.alicdn.com/img/ibank/O1CN011roMp62APMnYHuUHX_!!2743028195-0-cib.jpg' },
+  { id:9, cat:'节日', name:'节日喜庆套装', price:'¥33', badge:'hot', desc:'节日限定设计，喜庆配色。',
+    img:'https://cbu01.alicdn.com/img/ibank/O1CN017dp3Jk20cy9bv2PKo_!!2201282426871-0-cib.jpg' },
+  { id:10, cat:'节日', name:'可爱主题派对装', price:'¥57', badge:'new', desc:'派对主题设计，精致做工。',
+    img:'https://cbu01.alicdn.com/img/ibank/O1CN012I2SE01tecaZo23Jh_!!2207588245927-0-cib.jpg' },
 ];
 
-/* ══════════════════════════════════════
-   全局状态
-   ══════════════════════════════════════ */
-let petDataUrl = null;
-let aiData = null;
-let aiRec = [];
-let selProduct = null;
-let curCat = '全部';
-let curAnimal = '全部';
+let curCat='全部';
+let aiRec=[];
+let selProduct=null;
+let aiData=null;
+
+// ── 快速试穿模式的两张图片 ──
+let quickPet=null, quickPetMime=null;
+let quickCloth=null, quickClothMime=null;
+
+// ── AI推荐模式的宠物图片 ──
+let aiPetDataUrl=null, aiPetB64=null, aiPetMime=null;
 
 /* ══════════════════════════════════════
-   上传
+   API Key 管理
    ══════════════════════════════════════ */
-function triggerUpload(){
-  if(document.getElementById('upload-box').classList.contains('has-img')) return;
-  document.getElementById('file-input').click();
+function getDeepseekKey(){ return localStorage.getItem('deepseek_key')||''; }
+function getVolcanoKey(){ return localStorage.getItem('volcano_key')||''; }
+function showKeyModal(){
+  document.getElementById('deepseek-key-input').value=getDeepseekKey();
+  document.getElementById('volcano-key-input').value=getVolcanoKey();
+  document.getElementById('key-modal').classList.add('on');
 }
-function handleUpload(input){
-  const f = input.files[0]; if(!f) return;
-  const r = new FileReader();
-  r.onload = e => {
-    petDataUrl = e.target.result;
-    const prev = document.getElementById('pet-preview');
-    prev.src = petDataUrl; prev.style.display='block';
-    document.getElementById('upload-ph').style.display='none';
-    document.getElementById('upload-box').classList.add('has-img');
-    analyzeGemini(petDataUrl);
+function closeKeyModal(){ document.getElementById('key-modal').classList.remove('on'); }
+function saveKeys(){
+  const dk=document.getElementById('deepseek-key-input').value.trim();
+  const vk=document.getElementById('volcano-key-input').value.trim();
+  if(dk) localStorage.setItem('deepseek_key',dk);
+  if(vk) localStorage.setItem('volcano_key',vk);
+  closeKeyModal();
+  alert('✓ 配置已保存');
+}
+
+/* ══════════════════════════════════════
+   模式切换
+   ══════════════════════════════════════ */
+function switchMode(mode){
+  document.getElementById('tab-quick').classList.toggle('active',mode==='quick');
+  document.getElementById('tab-ai').classList.toggle('active',mode==='ai');
+  document.getElementById('card-quick').classList.toggle('active',mode==='quick');
+  document.getElementById('card-ai').classList.toggle('active',mode==='ai');
+}
+
+/* ══════════════════════════════════════
+   快速试穿：上传两张图
+   ══════════════════════════════════════ */
+function handleQuickUpload(input,type){
+  const f=input.files[0]; if(!f) return;
+  const r=new FileReader();
+  r.onload=e=>{
+    const dataUrl=e.target.result;
+    const b64=dataUrl.split(',')[1];
+    const mime=dataUrl.split(';')[0].split(':')[1];
+    if(type==='pet'){
+      quickPet=b64; quickPetMime=mime;
+      document.getElementById('quick-pet-preview').src=dataUrl;
+      document.getElementById('quick-pet-preview').style.display='block';
+      document.getElementById('quick-pet-ph').style.display='none';
+      document.getElementById('quick-pet-zone').classList.add('has-img');
+    } else {
+      quickCloth=b64; quickClothMime=mime;
+      document.getElementById('quick-cloth-preview').src=dataUrl;
+      document.getElementById('quick-cloth-preview').style.display='block';
+      document.getElementById('quick-cloth-ph').style.display='none';
+      document.getElementById('quick-cloth-zone').classList.add('has-img');
+    }
   };
   r.readAsDataURL(f);
 }
 
+async function generateQuickTryon(){
+  if(!quickPet||!quickCloth){alert('请先上传宠物照片和衣服照片');return;}
+  if(!getVolcanoKey()){showKeyModal();return;}
+
+  const btn=document.getElementById('quick-gen-btn');
+  btn.textContent='⏳ 生成中，约15-20秒...';btn.disabled=true;
+
+  document.getElementById('t-pet').innerHTML=`<img src="data:${quickPetMime};base64,${quickPet}">`;
+  document.getElementById('t-cloth').innerHTML=`<img src="data:${quickClothMime};base64,${quickCloth}">`;
+  document.getElementById('tryon-box').classList.add('on');
+  document.getElementById('tryon-wrap').scrollIntoView({behavior:'smooth'});
+
+  try{
+    const res=await fetch('/api/tryon',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        petImage:quickPet, petMime:quickPetMime,
+        clothImage:quickCloth, clothMime:quickClothMime,
+        clothName:'这件衣服',
+        apiKey:getVolcanoKey()
+      })
+    });
+    const data=await res.json();
+    if(data.error) throw new Error(data.error);
+    document.getElementById('t-result').innerHTML=`<img src="${data.imageUrl}">`;
+    btn.textContent='🔄 重新生成';btn.disabled=false;
+  }catch(e){
+    document.getElementById('t-result').innerHTML=`<div class="tbox-empty">❌ ${e.message}</div>`;
+    btn.textContent='❌ 生成失败，点击重试';btn.disabled=false;
+  }
+}
+
 /* ══════════════════════════════════════
-   Gemini API 调用
-   接口：generativelanguage.googleapis.com
-   模型：gemini-2.0-flash（免费额度充足）
+   AI推荐：上传宠物照 → 分析 → 推荐
    ══════════════════════════════════════ */
-async function analyzeGemini(dataUrl){
+function handleAIUpload(input){
+  const f=input.files[0]; if(!f) return;
+  if(!getDeepseekKey()){showKeyModal();return;}
+  const r=new FileReader();
+  r.onload=e=>{
+    aiPetDataUrl=e.target.result;
+    aiPetB64=aiPetDataUrl.split(',')[1];
+    aiPetMime=aiPetDataUrl.split(';')[0].split(':')[1];
+    document.getElementById('ai-pet-preview').src=aiPetDataUrl;
+    document.getElementById('ai-pet-preview').style.display='block';
+    document.getElementById('ai-pet-ph').style.display='none';
+    document.getElementById('ai-pet-zone').classList.add('has-img');
+    document.getElementById('t-pet').innerHTML=`<img src="${aiPetDataUrl}">`;
+    analyzePet();
+  };
+  r.readAsDataURL(f);
+}
+
+async function analyzePet(){
   const card=document.getElementById('ai-card');
   const loading=document.getElementById('ai-loading');
   const result=document.getElementById('ai-result');
+  const errorBox=document.getElementById('ai-error');
   card.classList.add('on');
   loading.style.display='flex';
   result.classList.remove('on');
-
-  const b64=dataUrl.split(',')[1];
-  const mime=dataUrl.split(';')[0].split(':')[1];
-
-  const PROMPT=`你是专业宠物穿搭顾问。分析图片中的宠物，只返回JSON不要其他：
-{
-  "emoji":"动物emoji",
-  "animal":"动物类型中文",
-  "breed":"品种中文，不确定写混种",
-  "bodySize":"小型/中型/大型",
-  "weightRange":"估算如3-5kg",
-  "bodyShape":"圆润/标准/修长",
-  "legType":"短腿/标准腿/长腿",
-  "furLength":"短毛/中长毛/长毛",
-  "furTexture":"光滑/蓬松/卷曲/粗硬",
-  "furColor":"毛色描述",
-  "personality":"性格一词",
-  "styles":["最适合的2个风格，从可爱/潮流/优雅/户外/节日中选"],
-  "styleReason":"推荐理由30字内",
-  "sizeRecommend":"推荐尺码",
-  "avoidTips":"穿搭禁忌20字内",
-  "praise":"夸它的话15字内",
-  "stylingTip":"核心穿搭建议30字内"
-}`;
+  errorBox.style.display='none';
 
   try{
-    const GEMINI_URL = `https://corsproxy.io/?url=${encodeURIComponent('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + GEMINI_KEY)}`;
-    const res = await fetch(
-      GEMINI_URL,
-      {
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({
-          contents:[{parts:[
-            {inline_data:{mime_type:mime,data:b64}},
-            {text:PROMPT}
-          ]}],
-          generationConfig:{temperature:0.2,maxOutputTokens:800}
-        })
-      }
-    );
-    const d = await res.json();
-    if(d.error) throw new Error(d.error.message);
-    const raw = d.candidates[0].content.parts[0].text.replace(/```json|```/g,'').trim();
-    aiData = JSON.parse(raw);
-    aiRec = aiData.styles||[];
-    renderAI(aiData);
+    const res=await fetch('/api/analyze',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({ image:aiPetB64, mime:aiPetMime, apiKey:getDeepseekKey() })
+    });
+    const r=await res.json();
+    if(r.error) throw new Error(r.error);
+
+    aiData=r;
+    aiRec=r.styles||[];
+    result.innerHTML=`
+      <div class="ai-top">
+        <div class="ai-avatar">${r.emoji||'🐾'}</div>
+        <div><div class="ai-name">${r.breed||r.animal} · ${r.bodySize} · ${r.personality}</div>
+        <div class="ai-sub">${r.weightRange} · ${r.furLength}${r.furTexture} · ${r.furColor}</div></div>
+      </div>
+      <div class="ai-grid">
+        <div class="ai-cell"><div class="ai-cell-l">体形</div><div class="ai-cell-v">${r.bodyShape} · ${r.legType}</div></div>
+        <div class="ai-cell"><div class="ai-cell-l">推荐尺码</div><div class="ai-cell-v">${r.sizeRecommend}</div></div>
+        <div class="ai-cell"><div class="ai-cell-l">毛发</div><div class="ai-cell-v">${r.furLength} · ${r.furTexture}</div></div>
+        <div class="ai-cell"><div class="ai-cell-l">毛色</div><div class="ai-cell-v">${r.furColor}</div></div>
+      </div>
+      <div class="ai-tip"><div class="ai-tip-label">💡 穿搭建议</div>${r.stylingTip}</div>
+      <div class="ai-warn"><strong style="font-size:10px">⚠️ 注意：</strong>${r.avoidTips}</div>
+      <div class="ai-styles">${(r.styles||[]).map(s=>`<span class="ai-style-tag ai-style-rec" onclick="quickFilter('${s}')">${s}系 →</span>`).join('')}</div>
+      <div class="praise">💬 ${r.praise}</div>
+    `;
     loading.style.display='none';
     result.classList.add('on');
     document.getElementById('scroll-hint').style.display='block';
     renderProducts();
-    setTimeout(()=>document.getElementById('catalog').scrollIntoView({behavior:'smooth'}),1000);
-  }catch(err){
-    console.error(err);
+    setTimeout(()=>document.getElementById('catalog').scrollIntoView({behavior:'smooth'}),800);
+  }catch(e){
     loading.style.display='none';
-    result.classList.add('on');
-    document.getElementById('ai-avatar').textContent='⚠️';
-    document.getElementById('ai-name').textContent='分析失败';
-    document.getElementById('ai-sub').textContent=err.message||'请检查API Key';
-    document.getElementById('ai-grid').innerHTML='';
-    document.getElementById('ai-tip-text').textContent='';
-    document.getElementById('ai-warn').textContent='';
-    document.getElementById('ai-styles').innerHTML='';
-    document.getElementById('scroll-hint').style.display='block';
+    errorBox.style.display='block';
+    errorBox.textContent=`分析失败：${e.message}`;
   }
-}
-
-function renderAI(r){
-  document.getElementById('ai-avatar').textContent=r.emoji||'🐾';
-  document.getElementById('ai-name').textContent=`${r.breed||r.animal} · ${r.bodySize} · ${r.personality}`;
-  document.getElementById('ai-sub').textContent=`${r.weightRange} · ${r.furLength}${r.furTexture} · ${r.furColor}`;
-  document.getElementById('ai-grid').innerHTML=`
-    <div class="ai-cell"><div class="ai-cell-l">体形</div><div class="ai-cell-v">${r.bodyShape} · ${r.legType}</div></div>
-    <div class="ai-cell"><div class="ai-cell-l">推荐尺码</div><div class="ai-cell-v">${r.sizeRecommend}</div></div>
-    <div class="ai-cell"><div class="ai-cell-l">毛发</div><div class="ai-cell-v">${r.furLength} · ${r.furTexture}</div></div>
-    <div class="ai-cell"><div class="ai-cell-l">毛色</div><div class="ai-cell-v">${r.furColor}</div></div>
-  `;
-  document.getElementById('ai-tip-text').innerHTML=`${r.stylingTip}<br><span style="opacity:.6;font-size:11px">${r.styleReason}</span>`;
-  document.getElementById('ai-warn').innerHTML=`<strong style="font-size:10px">⚠️ 注意：</strong>${r.avoidTips}`;
-  document.getElementById('ai-praise').textContent=`💬 ${r.praise}`;
-  const tags=document.getElementById('ai-styles');
-  tags.innerHTML=(r.styles||[]).map(s=>
-    `<span class="ai-style-tag ai-style-rec" onclick="quickFilter('${s}')">${s}系 →</span>`
-  ).join('')+`<span class="ai-style-tag ai-style-other" onclick="quickFilter('全部')">查看全部</span>`;
 }
 
 /* ══════════════════════════════════════
@@ -927,17 +582,14 @@ function renderAI(r){
    ══════════════════════════════════════ */
 function renderProducts(){
   const grid=document.getElementById('pgrid');
-  let list=PRODUCTS;
-  if(curCat!=='全部') list=list.filter(p=>p.cat===curCat);
-  if(curAnimal!=='全部') list=list.filter(p=>p.animal===curAnimal||p.animal==='通用');
+  let list=curCat==='全部'?PRODUCTS:PRODUCTS.filter(p=>p.cat===curCat);
   grid.innerHTML=list.map(p=>{
     const isRec=aiRec.includes(p.cat);
     const isSel=selProduct&&selProduct.id===p.id;
     return `
     <div class="pcard ${isRec?'rec':''} ${isSel?'sel':''}" onclick="selectProduct(${p.id})">
       <div class="pimg">
-        <img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <div class="pimg-placeholder" style="display:none">🐾</div>
+        <img src="${p.img}" loading="lazy">
         <div class="pbadges">
           ${p.badge==='hot'?'<span class="pbadge pbadge-hot">热销</span>':''}
           ${p.badge==='new'?'<span class="pbadge pbadge-new">新品</span>':''}
@@ -948,106 +600,66 @@ function renderProducts(){
         <div class="pname">${p.name}</div>
         <div class="pcat">${p.cat}系</div>
         <div class="pdesc">${p.desc}</div>
-        <div class="psizes">${p.sizes.map(s=>`<span class="psize">${s}</span>`).join('')}</div>
         <div class="pfooter">
-          <div class="pprice">
-            <span class="pprice-num">${p.price}</span>
-            <span class="pprice-sub"> 起</span>
-          </div>
-          <button class="pbtn ${isSel?'sel':''}" onclick="event.stopPropagation();selectProduct(${p.id})">
-            ${isSel?'✓ 已选':'选择试穿'}
-          </button>
+          <div class="pprice-num">${p.price}</div>
+          <button class="pbtn ${isSel?'sel':''}" onclick="event.stopPropagation();selectProduct(${p.id})">${isSel?'✓ 已选':'选择试穿'}</button>
         </div>
       </div>
     </div>`;
   }).join('');
 }
-
 function filterCat(cat,btn){
   curCat=cat;
   document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('on'));
   if(btn) btn.classList.add('on');
   renderProducts();
 }
-function filterAnimal(a,card){
-  curAnimal=a;
-  document.querySelectorAll('.animal-card').forEach(c=>c.classList.remove('on'));
-  if(card) card.classList.add('on');
-  renderProducts();
-}
 function quickFilter(cat){
   curCat=cat;
-  document.querySelectorAll('.cat-btn').forEach(b=>{
-    b.classList.toggle('on',b.textContent.trim().includes(cat)||(cat==='全部'&&b.textContent.includes('全部')));
-  });
+  document.querySelectorAll('.cat-btn').forEach(b=>b.classList.toggle('on',b.textContent.includes(cat)));
   renderProducts();
   document.getElementById('catalog').scrollIntoView({behavior:'smooth'});
 }
 
 /* ══════════════════════════════════════
-   选中商品 → 跳转试穿区
+   选中商品 → 调用服务器生成试穿图
+   服务器会自动下载商品图片并转换，
+   不需要浏览器处理跨域图片转换
    ══════════════════════════════════════ */
-function selectProduct(id){
+async function selectProduct(id){
   selProduct=PRODUCTS.find(p=>p.id===id);
   if(!selProduct) return;
-  // 更新试穿区
-  document.getElementById('t-cloth').innerHTML=
-    `<img src="${selProduct.img}" alt="${selProduct.name}" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display='none'">`;
-  document.getElementById('t-cloth-info').innerHTML=
-    `<div style="font-weight:500">${selProduct.name}</div><div style="opacity:.6;margin-top:2px">${selProduct.price} · ${selProduct.cat}系</div>`;
-  // 重置效果图
-  document.getElementById('t-result-img').style.display='none';
-  document.getElementById('t-result-empty').style.display='flex';
-  document.getElementById('t-result-badge').style.display='none';
-  document.getElementById('btn-gen').textContent='✨ 生成试穿效果图';
-  document.getElementById('btn-gen').disabled=false;
-  // 显示试穿区
-  document.getElementById('tryon-box').classList.add('on');
   renderProducts();
-  setTimeout(()=>document.getElementById('tryon-wrap').scrollIntoView({behavior:'smooth'}),100);
-}
 
-/* ══════════════════════════════════════
-   试穿效果图生成
-   使用 Pollinations.ai（免费，无需Key）
-   ══════════════════════════════════════ */
-async function generateTryon(){
-  if(!selProduct){alert('请先选择服装款式');return;}
-  if(!petDataUrl){alert('请先上传宠物照片');return;}
-  const btn=document.getElementById('btn-gen');
-  btn.textContent='⏳ 生成中...';btn.disabled=true;
-  const pet=aiData?`${aiData.animal},${aiData.breed},${aiData.bodySize},${aiData.furColor}`:'cute pet';
-  const prompt=encodeURIComponent(`professional pet photo,${pet},wearing ${selProduct.keyword},studio lighting,white background,photorealistic,high quality,adorable`);
-  const neg=encodeURIComponent('human,ugly,blurry,low quality');
-  const seed=Math.floor(Math.random()*999999);
-  const url=`https://image.pollinations.ai/prompt/${prompt}?negative_prompt=${neg}&width=512&height=512&seed=${seed}&nologo=true&model=flux`;
+  if(!getVolcanoKey()){showKeyModal();return;}
+  if(!aiPetB64){alert('请先上传宠物照片');return;}
+
+  document.getElementById('t-cloth').innerHTML=`<img src="${selProduct.img}">`;
+  document.getElementById('t-result').innerHTML=`<div class="tbox-empty" id="t-result-empty">⏳ 生成中...</div>`;
+  document.getElementById('tryon-box').classList.add('on');
+  document.getElementById('tryon-wrap').scrollIntoView({behavior:'smooth'});
+
   try{
-    await new Promise((res,rej)=>{
-      const img=new Image();
-      img.onload=res;img.onerror=rej;img.src=url;
-      setTimeout(()=>rej(new Error('超时')),60000);
+    const res=await fetch('/api/tryon',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        petImage:aiPetB64, petMime:aiPetMime,
+        clothImageUrl:selProduct.img,
+        clothName:selProduct.name,
+        apiKey:getVolcanoKey()
+      })
     });
-    document.getElementById('t-result-img').src=url;
-    document.getElementById('t-result-img').style.display='block';
-    document.getElementById('t-result-empty').style.display='none';
-    document.getElementById('t-result-badge').style.display='block';
-    btn.textContent='🔄 重新生成';btn.disabled=false;
+    const data=await res.json();
+    if(data.error) throw new Error(data.error);
+    document.getElementById('t-result').innerHTML=`<img src="${data.imageUrl}">`;
   }catch(e){
-    btn.textContent='❌ 失败，点击重试';btn.disabled=false;
+    document.getElementById('t-result').innerHTML=`<div class="tbox-empty">❌ ${e.message}</div>`;
   }
 }
 
 /* ══════════════════════════════════════
-   宠物图同步到试穿区
-   ══════════════════════════════════════ */
-function syncPetToTryon(){
-  if(!petDataUrl) return;
-  document.getElementById('t-pet').innerHTML=
-    `<img src="${petDataUrl}" style="width:100%;height:100%;object-fit:cover">`;
-}
-
-/* ══════════════════════════════════════
-   CTA 收集
+   收集联系方式
    ══════════════════════════════════════ */
 function submitCTA(){
   const v=document.getElementById('cta-input').value.trim();
@@ -1056,25 +668,7 @@ function submitCTA(){
   document.getElementById('cta-input').value='';
 }
 
-/* ══════════════════════════════════════
-   滚动动画
-   ══════════════════════════════════════ */
-const obs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on')});
-},{threshold:0.1});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-
-/* ══════════════════════════════════════
-   初始化
-   ══════════════════════════════════════ */
 renderProducts();
-
-// 监听宠物图上传同步到试穿区
-const origHandle=handleUpload;
-window.handleUpload=function(input){
-  origHandle(input);
-  setTimeout(syncPetToTryon,500);
-};
 </script>
 </body>
 </html>
