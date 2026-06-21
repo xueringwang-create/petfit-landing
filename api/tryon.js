@@ -67,7 +67,7 @@ export default async function handler(req, res) {
         stream: false,
         watermark: false,
         // 10是上限但会导致画质失真（马赛克感），调到8做折中
-        guidance_scale: 7
+        guidance_scale: 7.5
       })
     });
 
