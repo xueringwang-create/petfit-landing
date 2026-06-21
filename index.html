@@ -252,6 +252,7 @@ footer{max-width:1400px;margin:0 auto;padding:30px 40px;border-top:2px solid var
   footer{flex-direction:column;gap:10px;text-align:center}
 }
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 </head>
 <body>
 
@@ -497,7 +498,7 @@ footer{max-width:1400px;margin:0 auto;padding:30px 40px;border-top:2px solid var
 let PRODUCTS = [];
 
 // ← 把下面这个地址换成你自己仓库的用户名/仓库名
-const PRODUCTS_URL = 'https://raw.githubusercontent.com/xueringwang-create/petfit-landing/main/products.json';
+const PRODUCTS_URL = 'https://raw.githubusercontent.com/xueringwang-create/petfit-landing/main/products.csv';
 
 // 临时兜底数据：如果还没建好 products.json，或者网络失败，先用这几个保底显示
 const FALLBACK_PRODUCTS = [
@@ -511,7 +512,9 @@ async function loadProducts(){
   try{
     const res = await fetch(PRODUCTS_URL + '?t=' + Date.now()); // 加时间戳避免缓存
     if(!res.ok) throw new Error('无法读取商品数据');
-    PRODUCTS = await res.json();
+    const csvText = await res.text();
+    const parsed = Papa.parse(csvText, { header:true, skipEmptyLines:true });
+    PRODUCTS = parsed.data;
   }catch(e){
     console.warn('商品库读取失败，使用兜底数据:', e.message);
     PRODUCTS = FALLBACK_PRODUCTS;
