@@ -179,6 +179,10 @@ body{font-family:'Noto Sans SC',sans-serif;background:var(--paper);color:var(--i
 .look-info{padding:16px}
 .look-name{font-family:'Noto Serif SC',serif;font-weight:700;font-size:14px;margin-bottom:4px}
 .look-cat{font-family:'Oswald',sans-serif;font-size:9px;letter-spacing:.06em;color:var(--muted);text-transform:uppercase;margin-bottom:10px}
+.variant-row{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px}
+.variant-pill{font-family:'Oswald',sans-serif;font-size:9px;letter-spacing:.03em;padding:4px 9px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;transition:all .15s}
+.variant-pill:hover{border-color:var(--ink);color:var(--ink)}
+.variant-pill.on{background:var(--ink);color:white;border-color:var(--ink)}
 .look-bottom{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line);padding-top:10px;margin-top:10px}
 .look-price{font-family:'Oswald',sans-serif;font-size:16px;font-weight:600;color:var(--shock)}
 .look-btn{font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:.04em;text-transform:uppercase;background:var(--ink);color:white;border:none;padding:6px 12px;cursor:pointer;font-weight:500}
@@ -200,6 +204,10 @@ body{font-family:'Noto Sans SC',sans-serif;background:var(--paper);color:var(--i
 .trip-img{aspect-ratio:1/1;margin:14px 18px;background:var(--paper2);display:flex;align-items:center;justify-content:center;overflow:hidden}
 .trip-img img{width:100%;height:100%;object-fit:cover}
 .trip-empty{font-size:11px;color:var(--muted);text-align:center;padding:20px}
+.buy-bar{border-top:2px solid var(--ink);padding:18px 30px;display:flex;align-items:center;justify-content:space-between;background:var(--paper2)}
+.buy-bar-text{font-size:12px;color:var(--muted)}
+.buy-btn{font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:.06em;text-transform:uppercase;background:var(--shock);color:white;text-decoration:none;padding:11px 22px;font-weight:600;transition:background .2s}
+.buy-btn:hover{background:var(--shock-dk)}
 
 /* ═══ SUBSCRIBE CTA ═══ */
 .cta{max-width:1400px;margin:0 auto 60px;padding:0 40px}
@@ -446,6 +454,10 @@ footer{max-width:1400px;margin:0 auto;padding:30px 40px;border-top:2px solid var
         <div class="trip-label">合成效果</div>
         <div class="trip-img" id="t-result"><div class="trip-empty" id="t-result-empty">等待生成</div></div>
       </div>
+    </div>
+    <div class="buy-bar" id="buy-bar" style="display:none">
+      <div class="buy-bar-text">满意这个效果？这件单品现在就能下单</div>
+      <a class="buy-btn" id="buy-btn" href="#" target="_blank" rel="noopener">前往购买 →</a>
     </div>
   </div>
 </section>
@@ -723,36 +735,65 @@ async function analyzePet(){
   }
 }
 
+/* ══════ 商品分组（同名商品合并成一张卡片，多颜色切换）══════ */
+function groupProducts(list){
+  const map = {};
+  list.forEach(p=>{
+    const key = p.name;
+    if(!map[key]){
+      map[key] = { name:p.name, cat:p.cat, price:p.price, badge:p.badge, desc:p.desc, variants:[], activeIdx:0 };
+    }
+    map[key].variants.push({ variant:p.variant||'', img:p.img, link:p.link||'', id:p.id });
+  });
+  return Object.values(map);
+}
+
 /* ══════ 商品渲染 ══════ */
 function renderProducts(){
   const grid=document.getElementById('pgrid');
   let list=curCat==='全部'?PRODUCTS:PRODUCTS.filter(p=>p.cat===curCat);
-  grid.innerHTML=list.map(p=>{
-    const isRec=aiRec.includes(p.cat);
-    const isSel=selProduct&&selProduct.id===p.id;
+  const groups = groupProducts(list);
+
+  grid.innerHTML=groups.map((g,gi)=>{
+    const isRec=aiRec.includes(g.cat);
+    const active = g.variants[g.activeIdx] || g.variants[0];
+    const isSel = selProduct && selProduct.groupName===g.name && selProduct.img===active.img;
+    const hasMultiple = g.variants.length > 1;
+
     return `
-    <div class="look-card ${isRec?'is-rec':''} ${isSel?'is-sel':''}" onclick="selectProduct(${p.id})">
-      <div class="look-img-wrap">
-        <img src="${p.img}" referrerpolicy="no-referrer" loading="lazy"
+    <div class="look-card ${isRec?'is-rec':''} ${isSel?'is-sel':''}">
+      <div class="look-img-wrap" onclick="selectGroupProduct(${gi})">
+        <img src="${active.img}" referrerpolicy="no-referrer" loading="lazy"
           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
         <div class="look-img-fallback" style="display:none"><svg class="icon-svg" viewBox="0 0 24 24" style="width:40px;height:40px;stroke-width:1.2"><circle cx="12" cy="15" r="4.5"/><circle cx="6" cy="7" r="2"/><circle cx="18" cy="7" r="2"/><circle cx="12" cy="5" r="2"/></svg></div>
         <div class="look-tags">
-          ${p.badge==='hot'?'<span class="look-tag hot">热销</span>':''}
-          ${p.badge==='new'?'<span class="look-tag new">新品</span>':''}
+          ${g.badge==='hot'?'<span class="look-tag hot">热销</span>':''}
+          ${g.badge==='new'?'<span class="look-tag new">新品</span>':''}
           ${isRec?'<span class="look-tag rec">AI推荐</span>':''}
         </div>
       </div>
       <div class="look-info">
-        <div class="look-name serif">${p.name}</div>
-        <div class="look-cat kicker">${p.cat}系</div>
+        <div class="look-name serif">${g.name}</div>
+        <div class="look-cat kicker">${g.cat}系${active.variant?' · '+active.variant:''}</div>
+        ${hasMultiple?`<div class="variant-row">${g.variants.map((v,vi)=>`<button class="variant-pill ${vi===g.activeIdx?'on':''}" onclick="event.stopPropagation();switchVariant(${gi},${vi})">${v.variant||('款'+(vi+1))}</button>`).join('')}</div>`:''}
         <div class="look-bottom">
-          <div class="look-price">${p.price}</div>
-          <button class="look-btn ${isSel?'sel':''}" onclick="event.stopPropagation();selectProduct(${p.id})">${isSel?'已选':'选择'}</button>
+          <div class="look-price">${g.price}</div>
+          <button class="look-btn ${isSel?'sel':''}" onclick="event.stopPropagation();selectGroupProduct(${gi})">${isSel?'已选':'选择'}</button>
         </div>
       </div>
     </div>`;
   }).join('');
+
+  // 缓存分组结果，供选择/切换函数使用
+  window._productGroups = groups;
 }
+
+function switchVariant(groupIdx, variantIdx){
+  if(!window._productGroups) return;
+  window._productGroups[groupIdx].activeIdx = variantIdx;
+  renderProducts();
+}
+
 function filterCat(cat,btn){
   curCat=cat;
   document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('on'));
@@ -766,9 +807,11 @@ function quickFilter(cat){
   document.getElementById('lookbook').scrollIntoView({behavior:'smooth'});
 }
 
-async function selectProduct(id){
-  selProduct=PRODUCTS.find(p=>p.id===id);
-  if(!selProduct) return;
+async function selectGroupProduct(groupIdx){
+  const g = window._productGroups[groupIdx];
+  if(!g) return;
+  const active = g.variants[g.activeIdx] || g.variants[0];
+  selProduct = { groupName:g.name, name:g.name+(active.variant?'·'+active.variant:''), img:active.img, link:active.link||'' };
   renderProducts();
 
   if(!getVolcanoKey()){showKeyModal();return;}
@@ -776,6 +819,7 @@ async function selectProduct(id){
 
   document.getElementById('t-cloth').innerHTML=`<img src="${selProduct.img}" referrerpolicy="no-referrer">`;
   document.getElementById('t-result').innerHTML=`<div class="trip-empty">生成中...</div>`;
+  document.getElementById('buy-bar').style.display='none';
   document.getElementById('fitting').classList.add('on');
   document.getElementById('fitting').scrollIntoView({behavior:'smooth'});
 
@@ -793,8 +837,18 @@ async function selectProduct(id){
     const data=await res.json();
     if(data.error) throw new Error(data.error);
     document.getElementById('t-result').innerHTML=`<img src="${data.imageUrl}">`;
+
+    // 生成成功后显示购买按钮（仅当该商品有购买链接时）
+    const buyBar=document.getElementById('buy-bar');
+    if(selProduct.link){
+      document.getElementById('buy-btn').href=selProduct.link;
+      buyBar.style.display='flex';
+    } else {
+      buyBar.style.display='none';
+    }
   }catch(e){
     document.getElementById('t-result').innerHTML=`<div class="trip-empty">❌ ${e.message}</div>`;
+    document.getElementById('buy-bar').style.display='none';
   }
 }
 
