@@ -66,9 +66,8 @@ export default async function handler(req, res) {
         size: '2K',
         stream: false,
         watermark: false,
-        // 提高这个数值让生成结果更贴近参考图，减少模型自由发挥
-        // 如果接口报错说数值超出范围，把这个数字调小（比如10）
-        guidance_scale: 12
+        // 已通过真实报错确认有效范围是 1.0 到 10.0，这里用上限值
+        guidance_scale: 10
       })
     });
 
