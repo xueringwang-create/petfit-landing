@@ -811,7 +811,7 @@ async function selectGroupProduct(groupIdx){
   const g = window._productGroups[groupIdx];
   if(!g) return;
   const active = g.variants[g.activeIdx] || g.variants[0];
-  selProduct = { groupName:g.name, name:g.name+(active.variant?'·'+active.variant:''), img:active.img, link:active.link||'' };
+  selProduct = { groupName:g.name, name:g.name+(active.variant?'·'+active.variant:''), img:active.img, link:active.link||'', desc:g.desc||'' };
   renderProducts();
 
   if(!getVolcanoKey()){showKeyModal();return;}
@@ -831,6 +831,7 @@ async function selectGroupProduct(groupIdx){
         petImage:aiPetB64, petMime:aiPetMime,
         clothImageUrl:selProduct.img,
         clothName:selProduct.name,
+        clothDesc:selProduct.desc||'',
         apiKey:getVolcanoKey()
       })
     });
