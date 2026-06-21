@@ -66,8 +66,8 @@ export default async function handler(req, res) {
         size: '2K',
         stream: false,
         watermark: false,
-        // 已通过真实报错确认有效范围是 1.0 到 10.0，这里用上限值
-        guidance_scale: 10
+        // 10是上限但会导致画质失真（马赛克感），调到8做折中
+        guidance_scale: 8
       })
     });
 
