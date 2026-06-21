@@ -1,7 +1,8 @@
 // ══════════════════════════════════════════════════════
 // 宠物照片分析 - 服务器端中转函数
 // ──────────────────────────────────────────────────────
-// 改用火山引擎 Doubao 视觉模型（DeepSeek官方接口已确认不支持图片）
+// 使用火山引擎 Doubao-Seed-1.6-vision 模型
+// 注意：这个模型用的是新版 Responses API 格式
 // 跟 tryon.js 共用同一个火山引擎 API Key
 // ══════════════════════════════════════════════════════
 
@@ -42,25 +43,24 @@ export default async function handler(req, res) {
 
   try {
     // ────────────────────────────────────────────────
-    // 火山引擎 Doubao 视觉模型接口
-    // 模型ID：doubao-1.5-vision-pro-250328（已在控制台确认开通）
+    // 火山引擎 Doubao-Seed-1.6-vision（新版 Responses API）
+    // 模型ID：doubao-seed-1-6-vision-250815
+    // 地址：/api/v3/responses（不是 chat/completions）
     // ────────────────────────────────────────────────
-    const response = await fetch('https://ark.cn-beijing.volces.com/api/v3/chat/completions', {
+    const response = await fetch('https://ark.cn-beijing.volces.com/api/v3/responses', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${apiKey}`
       },
       body: JSON.stringify({
-        model: 'doubao-1.5-vision-pro-250328',
-        max_tokens: 1000,
-        temperature: 0.3,
-        messages: [
+        model: 'doubao-seed-1-6-vision-250815',
+        input: [
           {
             role: 'user',
             content: [
-              { type: 'image_url', image_url: { url: `data:${mime};base64,${image}` } },
-              { type: 'text', text: PROMPT }
+              { type: 'input_image', image_url: `data:${mime};base64,${image}` },
+              { type: 'input_text', text: PROMPT }
             ]
           }
         ]
@@ -72,11 +72,34 @@ export default async function handler(req, res) {
     if (data.error) {
       return res.status(400).json({ error: `火山引擎接口报错：${data.error.message || JSON.stringify(data.error)}` });
     }
-    if (!data.choices || !data.choices[0]) {
-      return res.status(400).json({ error: `返回格式异常：${JSON.stringify(data)}` });
+
+    // ────────────────────────────────────────────────
+    // Responses API 的返回结构跟 chat/completions 不一样
+    // 尝试几种可能的路径来取出文字内容
+    // 如果都取不到，把完整原始返回传回前端方便排查
+    // ────────────────────────────────────────────────
+    let rawText = null;
+
+    if (data.output_text) {
+      rawText = data.output_text;
+    } else if (Array.isArray(data.output)) {
+      const msg = data.output.find(o => o.type === 'message' || o.role === 'assistant');
+      if (msg && Array.isArray(msg.content)) {
+        const textPart = msg.content.find(c => c.type === 'output_text' || c.text);
+        rawText = textPart?.text || textPart?.output_text;
+      }
+    } else if (data.choices?.[0]?.message?.content) {
+      rawText = data.choices[0].message.content;
     }
 
-    const rawText = data.choices[0].message.content.replace(/```json|```/g, '').trim();
+    if (!rawText) {
+      return res.status(400).json({
+        error: '无法从返回结果中提取文字内容，返回结构与预期不同',
+        raw: JSON.stringify(data).slice(0, 800)
+      });
+    }
+
+    rawText = rawText.replace(/```json|```/g, '').trim();
 
     let parsed;
     try {
